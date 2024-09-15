@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de tempo de movimentação</title>
+    <!-- Aqui você pode incluir links para folhas de estilo CSS -->
+    <!-- Exemplo: <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+  <div style="background-color: #325d88; height: 80px">
+    <div style="width: 100%; height: 100%; 
+                color: white; 
+                text-align: center; 
+                vertical-align: middle; 
+                justify-content: center; 
+                font-size: 24px;
+                display: flex;
+                font-family: 'Segoe UI';">
+                <h4 style="padding-top: 25px;">
+                  Relatório de tempo de movimentaçaõ de processos
+                </h4>
+
+    </div>
+  </div>
+  <div style="padding-top: 25px; font-family: 'Segoe UI'; font-weight: bold; font-size: 18px;">
+    Filtros aplicados
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-weight: bold; font-size: 14px;">
+    Seção Judiciária
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-size: 11px;">
+    {{ sj }}
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-weight: bold; font-size: 14px;">
+    Varas federais
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-size: 11px;">
+    {{ varas }}
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-weight: bold; font-size: 14px;">
+    Classes Judiciais
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-size: 11px;">
+    {{ assuntos }}
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-weight: bold; font-size: 14px;">
+    Processos encontrados: {{ processos }}
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-weight: bold; font-size: 14px;">
+    Período: {{ periodo }}
+  </div>
+  <div style="padding-top: 5px; font-family: 'Segoe UI'; font-size: 11px;">
+    {% if not dataframe.empty %}
+      <table>
+          <thead>
+              <tr>
+                  {% for col in dataframe.columns %}
+                      <th>{{ col }}</th>
+                  {% endfor %}
+              </tr>
+          </thead>
+          <tbody>
+              {% for row in dataframe.itertuples(index=False) %}
+                  <tr>
+                      {% for cell in row %}
+                          <td>{{ cell }}</td>
+                      {% endfor %}
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  {% else %}
+      <p>Não há dados disponíveis.</p>
+  {% endif %}
+  </div>
+</body>
+</html>
